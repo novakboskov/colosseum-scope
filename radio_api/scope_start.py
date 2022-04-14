@@ -160,7 +160,9 @@ def get_active_nodes_nmap() -> dict:
 
             # get SRN num from host IP
             if nmap_host_keyword in curr_line and nmap_up_keyword in lines[l_idx + 1]:
-                srn_num = int(curr_line.split(col0_base_ip)[1]) - srn_offset
+                curr_line_stripped = re.sub('[^1-9]', '',
+                                            curr_line.split(col0_base_ip)[1])
+                srn_num = int(curr_line_stripped) - srn_offset
 
                 # check this is an actual SRN and add it to dictionary
                 if srn_num > 0:
